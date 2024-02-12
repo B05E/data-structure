@@ -4,66 +4,48 @@
 struct node
 {
     int data;
-    struct node* left;
-    struct node* right;
+    struct node *lchild;
+    struct node *rchild;
 };
 
 struct node* create()
 {
-   int x;
-   struct node* newnode;
+    int n;
+   struct node *newnode;
    newnode=(struct node*)malloc(sizeof(struct node));
-   printf("Enter the data (if no node enter -1)");
-   scanf("%d",&x);
-
-   if(x==-1)
+   printf("\n enter the value (if no value enter -1)\n");
+   scanf("%d",&n);
+   if(n==-1)
    {
-        return 0;
+       return;
    }
    else
    {
-       newnode->data=x;
-       printf("\nEnter the left child of %d\n",x);
-       newnode->left=create();
-       printf("\n Enter the right child of %d\n",x);
-       newnode->right=create();
+       newnode->data=n;
+       printf("\n enter the %d left child\n",n);
+       newnode->lchild=create();
+       printf("\n enter the %d right child\n",n);
+       newnode->rchild=create();
        return newnode;
    }
-
 }
 
-void preorder(struct node* root)
-{
-    if(root==0)
-        return ;
-    else
-    {
-        printf("%d \t",root->data);
-        preorder(root->left);
-        preorder(root->right);
-    }
-
-}
-void inorder(struct node *root)
+void preorder(struct node *root)
 {
     if(root==0)
         return;
-    else
-    {
-        inorder(root->left);
-        printf("\n%d \t",root->data);
-        inorder(root->right);
-    }
+
+    printf("\n %d ",root->data);
+    preorder(root->lchild);
+    preorder(root->rchild);
 }
-int main()
+
+void main()
 {
-    struct node* root;
+    struct node *root;
     root=0;
     root=create();
 
-    printf("\n preorder \n");
-    preorder(root);
-    printf("\n postorder:\n");
-    inorder(root);
-    return 0;
+   printf("\n preorder is:");
+   preorder(root);
 }
